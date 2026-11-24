@@ -53,8 +53,8 @@ jobs:
         env:
           CI: "true"
         run: |
-          ls -la
-          if [ ! -d "android" ]; then echo "" | npx cap add android; fi
+          rm -rf android
+          echo "" | npx cap add android
           npx cap sync android
           ls -la android
 
