@@ -8,6 +8,7 @@ on:
 jobs:
   build-apk:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -49,10 +50,11 @@ jobs:
         run: npm run build
 
       - name: Sync Capacitor
+        env:
+          CI: "true"
         run: |
           ls -la
-          cat capacitor.config.ts || cat capacitor.config.json || echo "no config"
-          if [ ! -d "android" ]; then npx cap add android; fi
+          if [ ! -d "android" ]; then echo "" | npx cap add android; fi
           npx cap sync android
           ls -la android
 
@@ -60,7 +62,7 @@ jobs:
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleDebug --stacktrace
+          ./gradlew assembleDebug --stacktrace --no-daemon
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
