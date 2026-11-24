@@ -21,7 +21,17 @@ jobs:
           ls -la
           cat package.json
 
-            - name: Fix Missing File         run: |           mkdir -p src/utils           cat > src/utils/apkProjectExporter.ts << 'EOF'           export async function downloadAndroidApkProjectZip() {             alert('APK Export is handled by GitHub Actions build');           }           EOF           ls -la src/utils/
+            - name: Fix Missing File         
+            run: |           
+                  - name: Fix Missing File
+        run: |
+          mkdir -p src/utils
+          cat > src/utils/apkProjectExporter.ts << 'EOF'
+          export async function downloadAndroidApkProjectZip() {
+            alert('APK Export is handled by GitHub Actions build');
+          }
+          EOF
+          ls -la src/utils/
         uses: actions/setup-node@v4
         with:
           node-version: 22
