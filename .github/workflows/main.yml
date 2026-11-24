@@ -21,9 +21,7 @@ jobs:
           ls -la
           cat package.json
 
-            - name: Fix Missing File         
-            run: |           
-                  - name: Fix Missing File
+      - name: Fix Missing File
         run: |
           mkdir -p src/utils
           cat > src/utils/apkProjectExporter.ts << 'EOF'
@@ -32,6 +30,8 @@ jobs:
           }
           EOF
           ls -la src/utils/
+
+      - name: Setup Node.js 22
         uses: actions/setup-node@v4
         with:
           node-version: 22
